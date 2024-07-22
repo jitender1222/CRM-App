@@ -1,3 +1,5 @@
+import daisyui from "daisyui";
+
 export default {
   content: [
     "./index.html",
@@ -6,5 +8,10 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("daisyui"),
+  ],
+  daisyui : {
+    themes:["night"]
+  }
 }
