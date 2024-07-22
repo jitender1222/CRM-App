@@ -26,7 +26,7 @@ const SignUp = () => {
             <div className="relative">
             <div className="absolute dropdown dropdown-right">
               <div tabIndex={0} role="button" className="btn m-1">
-                Click
+                User Type
               </div>
               <ul
                 tabIndex={0}
