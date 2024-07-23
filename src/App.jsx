@@ -1,12 +1,9 @@
-import './App.css'
-import Login from './pages/auth/Login'
-import SignUp from './pages/auth/SIgnUp'
+import MainRoutes from './Routes/MainRoutes'
 
 function App() {
   return (
     <>
-      {/* <Login /> */}
-      <SignUp />
+      <MainRoutes />
     </>
   )
 }
