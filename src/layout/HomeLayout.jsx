@@ -2,6 +2,7 @@ import { BsFillMenuButtonWideFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../Redux/Slices/auth";
+import { useEffect } from "react";
 
 const HomeLayout = ({ children }) => {
   const authSlice = useSelector((state) => state.auth);
@@ -12,6 +13,10 @@ const HomeLayout = ({ children }) => {
     dispatch(logout())
     navigate("/login");
   }
+
+  useEffect(()=>{
+    if(!authSlice.isLoggedIn) navigate("/login");
+  },[])
 
   return (
     <>
