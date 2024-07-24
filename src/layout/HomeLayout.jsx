@@ -1,11 +1,21 @@
-import { BsFillMenuButtonWideFill } from "react-icons/bs"
-import { Link } from "react-router-dom"
+import { BsFillMenuButtonWideFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../Redux/Slices/auth";
 
-const HomeLayout=({children})=>{
+const HomeLayout = ({ children }) => {
+  const authSlice = useSelector((state) => state.auth);
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
 
-    return(
-        <>
-         <div className="drawer">
+  const handleLogout =()=>{
+    dispatch(logout())
+    navigate("/login");
+  }
+
+  return (
+    <>
+      <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content mt-4 ml-4">
           {/* Page content here */}
@@ -26,19 +36,42 @@ const HomeLayout=({children})=>{
             </li>
             <li>
               <a>View All Tickets</a>
-            </li> 
-            <li className="absolute bottom-8">
-            <div className="flex items-center ">
-                <li><button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer"> <Link to={"/login"} >Login</Link> </button></li>
-                <li><button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer"><Link to={"/signup"} >SignUp</Link></button></li>
-            </div>
             </li>
+            <div className="absolute bottom-8 flex items-center space-x-2">
+              {!authSlice.isLoggedIn ? (
+                <>
+                  <li>
+                    <button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer">
+                      <Link to="/login">Login</Link>
+                    </button>
+                  </li>
+                  <li>
+                    <button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer">
+                      <Link to="/signup">SignUp</Link>
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <button onClick={handleLogout} className="bg-orange-500 font-bold text-zinc-800 cursor-pointer">
+                      <Link to="/login">Logout</Link>
+                    </button>
+                  </li>
+                  <li>
+                    <button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer">
+                      <Link to="/">Profile</Link>
+                    </button>
+                  </li>
+                </>
+              )}
+            </div>
           </ul>
         </div>
       </div>
       <div>{children}</div>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default HomeLayout
+export default HomeLayout;
