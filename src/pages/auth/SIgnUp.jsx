@@ -37,7 +37,6 @@ const Signup = () => {
     )
       return;
     const response = await dispatch(signup(signupDetails));
-    console.log(response);
     if(response.payload) navigate("/login");
     else resetSignupDetails();
   }
