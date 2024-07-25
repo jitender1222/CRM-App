@@ -20,9 +20,10 @@ const HomeLayout = ({ children }) => {
 
   return (
     <>
-      <div className="drawer">
+    <div className="flex mt-4">
+      <div className="drawer w-[25%]">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content mt-4 ml-4">
+        <div className="drawer-content ml-4">
           {/* Page content here */}
           <label htmlFor="my-drawer">
             <BsFillMenuButtonWideFill size={"32px"} />
@@ -74,7 +75,8 @@ const HomeLayout = ({ children }) => {
           </ul>
         </div>
       </div>
-      <div>{children}</div>
+      <div className="border w-[50%]">{children}</div>
+      </div>
     </>
   );
 };
