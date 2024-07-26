@@ -75,7 +75,7 @@ const HomeLayout = ({ children }) => {
           </ul>
         </div>
       </div>
-      <div className="border w-[50%]">{children}</div>
+      <div className="flex gap-2 w-[50%]">{children}</div>
       </div>
     </>
   );

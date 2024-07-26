@@ -6,13 +6,14 @@ const initialState={
     role: localStorage.getItem("role") || "",
     data: localStorage.getItem("data") || undefined,
     token:localStorage.getItem("token") || "",
-    isLoggedIn: localStorage.getItem("isLoggedIn") || false
+    isLoggedIn: localStorage.getItem("isLoggedIn") ? JSON.parse(localStorage.getItem("data")) : undefined
 }
 
 export const login = createAsyncThunk("/auth/login", async (data) => {
+    console.log(data);
     try {
       const responsePromise = axiosInstance.post("auth/signin", data);
-  
+      console.log("inside",data);
       toast.promise(responsePromise, {
         loading: "Submitting Form",
         success: "Successfully Login",
@@ -20,6 +21,7 @@ export const login = createAsyncThunk("/auth/login", async (data) => {
       });
   
       const response = await responsePromise;
+      console.log("response",response);
       return response;
     } catch (error) {
       console.log(error);
@@ -27,15 +29,17 @@ export const login = createAsyncThunk("/auth/login", async (data) => {
   });
 
 export const signup=createAsyncThunk("/auth/signup",async (data)=>{
-
     try {
-        const response= await axiosInstance.post("auth/signup",data);
-        toast.promise=(response,{
+        const responsePromise= axiosInstance.post("auth/signup",data);
+        console.log("inside",data)
+        toast.promise=(responsePromise,{
             loading:"Submitting Form",
             success:"Successfully signed up",
             error:"Something went wrong Please try again !"
         })
-        return await response; 
+        const response=await responsePromise;
+        console.log("signup",response);
+        return response;
     } catch (error) {
         console.log(error);
         throw error;
@@ -47,7 +51,6 @@ const authSlice=createSlice({
     initialState,
     reducers:{
         logout:(state)=>{
-            console.log("hello");
             localStorage.clear();
             state.data="";
             state.role="";
@@ -57,7 +60,8 @@ const authSlice=createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled,(state,action)=>{
-            state.isLoggedIn=(action.payload.data ?.token != undefined);
+            console.log(action);
+            state.isLoggedIn=(action.payload.data?.token != undefined);
             state.data=action.payload.data ?.userData;
             state.role=action.payload.data ?.userData ?.userType;
             state.token=action.payload.data ?.token;
