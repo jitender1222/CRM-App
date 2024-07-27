@@ -21,7 +21,7 @@ const HomeLayout = ({ children }) => {
   return (
     <>
     <div className="flex mt-4">
-      <div className="drawer w-[25%]">
+      <div className="drawer w-[30%]">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content ml-4">
           {/* Page content here */}
@@ -75,7 +75,7 @@ const HomeLayout = ({ children }) => {
           </ul>
         </div>
       </div>
-      <div className="flex gap-2 w-[50%]">{children}</div>
+      <div className="flex w-[50%] gap-2">{children}</div>
       </div>
     </>
   );
