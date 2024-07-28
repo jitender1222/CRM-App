@@ -1,35 +1,14 @@
 import {TbProgressBolt} from "react-icons/tb"
 import Card from "../components/Card";
 import HomeLayout from "../layout/HomeLayout";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { allTicket } from "../Redux/Slices/tickets";
 import { PiLockKeyOpenDuotone } from "react-icons/pi";
 import { IoCloudDoneSharp } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import { MdPending } from "react-icons/md";
-
-
-
-
+import useLoadTickets from "../hooks/useLoadTickets";
 
 const Home = () => {
-  const auth = useSelector((state) => state.auth);
-  const ticket = useSelector((state) => state.tickets);
-
-  console.log((ticket.ticketDistribution.inProgress / ticket.ticketList.length).toFixed(2));
-
-  const dispatch = useDispatch();
-
-  async function loadTickets() {
-    if (ticket.ticketList.length === 0) {
-      const response = await dispatch(allTicket());
-      return response;
-    }
-  }
-  useEffect(() => {
-    loadTickets();
-  }, [auth.token]);
+  const [ticket]=useLoadTickets();
   return (
     <>
       <HomeLayout>

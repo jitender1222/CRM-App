@@ -21,7 +21,7 @@ const HomeLayout = ({ children }) => {
   return (
     <>
     <div className="flex mt-4">
-      <div className="drawer w-[30%]">
+      <div className="drawer w-[20%]">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content ml-4">
           {/* Page content here */}
@@ -38,10 +38,10 @@ const HomeLayout = ({ children }) => {
           <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
             {/* Sidebar content here */}
             <li>
-              <a>Dashboard</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a>View All Tickets</a>
+             <Link to="/dashboard">Dashboard</Link>
             </li>
             <div className="absolute bottom-8 flex items-center space-x-2">
               {!authSlice.isLoggedIn ? (
@@ -60,12 +60,12 @@ const HomeLayout = ({ children }) => {
               ) : (
                 <>
                   <li>
-                    <button onClick={handleLogout} className="bg-orange-500 font-bold text-zinc-800 cursor-pointer">
+                    <button onClick={handleLogout} className="bg-orange-500 font-bold text-zinc-800 cursor-pointer hover:bg-yellow-400">
                       <Link to="/login">Logout</Link>
                     </button>
                   </li>
                   <li>
-                    <button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer">
+                    <button className="bg-orange-500 font-bold text-zinc-800 cursor-pointer hover:bg-yellow-400">
                       <Link to="/">Profile</Link>
                     </button>
                   </li>
@@ -75,7 +75,7 @@ const HomeLayout = ({ children }) => {
           </ul>
         </div>
       </div>
-      <div className="flex w-[50%] gap-2">{children}</div>
+      <div>{children}</div>
       </div>
     </>
   );
