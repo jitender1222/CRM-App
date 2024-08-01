@@ -14,6 +14,8 @@ const Dashboard = () => {
   const [ticket] = useLoadTickets();
   const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
 
+  console.log("inside dashbhpard",ticket);
+
   const columns = [
     {
       name: 'Ticket Id',

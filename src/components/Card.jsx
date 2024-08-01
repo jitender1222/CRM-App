@@ -6,12 +6,14 @@ const Card = ({ children,status="50",quantity=50,titleText="Card" ,color="bg-pri
 
 function onClick(){
   navigate(`/dashboard?status=${titleText}`)
-}
+} 
 
   
   return (
     <>
-      <div onClick={onClick} className={` border-b-8 ${borderColor}	 hover:scale-110 cursor-pointer transition ease-linear w-64 h-52  ${color} rounded-md flex flex-col justify-center items-center`} >
+      <div onClick={onClick} className={` border-b-8 ${borderColor}	 
+      hover:scale-110 cursor-pointer transition ease-linear w-64 h-52  
+      ${color} rounded-md flex flex-col justify-center items-center`} >
         <div className="text-primary-content text-2xl ">
           {children}<span className="ml-4  font-mono font-semibold capitalize">{titleText}</span>
         </div>

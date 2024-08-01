@@ -4,6 +4,7 @@ import axiosInstance from "../../config/axiosInstance";
 
 
 const initialState={
+    downloadedTicket:[],
     ticketList:[],
     ticketDistribution:{
         open:0,
@@ -24,7 +25,7 @@ export const allTicket=createAsyncThunk("tickets/getMyAssignedTickets",async ()=
             success:"Successfully loaded all the tickets",
             loading:"Fetching tickets belonging to you",
         });
-        return await response;
+        return await response
     } catch (error) {
         console.log(error);
         toast.error("Something went wrong");
@@ -32,14 +33,18 @@ export const allTicket=createAsyncThunk("tickets/getMyAssignedTickets",async ()=
 });
 
 const ticketsSlice=createSlice({
-
     name:"ticket",
     initialState,
-    reducers:{},
+    reducers:{
+        filterTicket: (state,action)=>{
+            state.ticketList=state.downloadedTicket.filter((ticket) => ticket.status=== action.payload.status)
+        }
+    },
     extraReducers:(builder)=>{
         builder.addCase(allTicket.fulfilled,(state,action)=>{
-            if(!action?.payload?.data == undefined) return;
+            if(action?.payload?.data == undefined) return;
             state.ticketList=action?.payload?.data?.result;
+            state.downloadedTicket=action?.payload?.data?.result;
             const ticket=action?.payload?.data?.result;
             ticket.forEach(el => {
                 state.ticketDistribution[el.status]+=1
@@ -48,4 +53,6 @@ const ticketsSlice=createSlice({
     }
 })
 
+
+export const {filterTicket} = ticketsSlice.actions;
 export default ticketsSlice.reducer

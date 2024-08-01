@@ -13,24 +13,24 @@ const Home = () => {
     <>
       <HomeLayout>
         <div className="flex flex-wrap gap-4">
-        <Card titleText="open" borderColor="border-yellow-500" status={(ticket.ticketDistribution.open / ticket.ticketList.length).toFixed(2)} quantity={ticket.ticketDistribution.open} > 
+        <Card titleText="open" borderColor="border-yellow-500" status={(ticket.ticketDistribution.open / ticket.downloadedTicket.length).toFixed(2)} quantity={ticket.ticketDistribution.open} > 
           <PiLockKeyOpenDuotone className="inline" />
         </Card>
         <Card
           borderColor="border-yellow-500"
           titleText="inProgress"
           color="bg-secondary"
-          status={(ticket.ticketDistribution.inProgress / ticket.ticketList.length).toFixed(2)} quantity={ticket.ticketDistribution.inProgress}
+          status={(ticket.ticketDistribution.inProgress / ticket.downloadedTicket.length).toFixed(2)} quantity={ticket.ticketDistribution.inProgress}
         >
           <TbProgressBolt className="inline" />
         </Card>
-        <Card titleText="resolved" color="bg-success" status={(ticket.ticketDistribution.resolved / ticket.ticketList.length).toFixed(2)} quantity={ticket.ticketDistribution.resolved}>
+        <Card titleText="resolved" color="bg-success" status={(ticket.ticketDistribution.resolved / ticket.downloadedTicket.length).toFixed(2)} quantity={ticket.ticketDistribution.resolved}>
           <IoCloudDoneSharp className="inline" />
         </Card>
-        <Card titleText="onHold" color="bg-warning" status={(ticket.ticketDistribution.onHold / ticket.ticketList.length).toFixed(2)} quantity={ticket.ticketDistribution.onHold}>
+        <Card titleText="onHold" color="bg-warning" status={(ticket.ticketDistribution.onHold / ticket.downloadedTicket.length).toFixed(2)} quantity={ticket.ticketDistribution.onHold}>
           <MdPending className="inline" />
         </Card>
-        <Card titleText="cancelled" borderColor="border-yellow-500" color="bg-error" status={(ticket.ticketDistribution.cancelled / ticket.ticketList.length).toFixed(2)} quantity={ticket.ticketDistribution.cancelled}>
+        <Card titleText="cancelled" borderColor="border-yellow-500" color="bg-error" status={(ticket.ticketDistribution.cancelled / ticket.downloadedTicket.length).toFixed(2)} quantity={ticket.ticketDistribution.cancelled}>
           <MdOutlineCancel className="inline" />
         </Card>
         </div>
