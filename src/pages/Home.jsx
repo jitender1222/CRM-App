@@ -6,9 +6,27 @@ import { IoCloudDoneSharp } from "react-icons/io5";
 import { MdOutlineCancel } from "react-icons/md";
 import { MdPending } from "react-icons/md";
 import useLoadTickets from "../hooks/useLoadTickets";
+import { ArcElement, Chart as ChartJS, Legend, Title,Tooltip } from "chart.js";
+import {Pie} from "react-chartjs-2"
+
+ChartJS.register(ArcElement,Legend,Tooltip)
 
 const Home = () => {
   const [ticket]=useLoadTickets();
+  console.log(ticket.ticketDistribution)
+
+  const pieChartData={
+    labels:Object.keys(ticket.ticketDistribution),
+    fontColor:"white",
+    datasets:[
+      {
+        data:Object.values(ticket.ticketDistribution),
+        backgroundColor:["red","blue","green","yellow","orange"],
+        borderWidth:2
+      }
+    ]
+  }
+  
   return (
     <>
       <HomeLayout>
@@ -33,6 +51,13 @@ const Home = () => {
         <Card titleText="cancelled" borderColor="border-yellow-500" color="bg-error" status={(ticket.ticketDistribution.cancelled / ticket.downloadedTicket.length).toFixed(2)} quantity={ticket.ticketDistribution.cancelled}>
           <MdOutlineCancel className="inline" />
         </Card>
+        </div>
+
+        {/* Pie Chart */}
+        <div className="flex justify-center mt-6 ">
+        <div className="h-[25rem] w-[25rem]">
+          <Pie data={pieChartData}/>
+        </div>
         </div>
       </HomeLayout>
     </>
