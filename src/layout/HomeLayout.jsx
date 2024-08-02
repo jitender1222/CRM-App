@@ -43,6 +43,9 @@ const HomeLayout = ({ children }) => {
             <li>
              <Link to="/dashboard">Dashboard</Link>
             </li>
+            <li>
+             {authSlice.role==="admin" && (<Link to="/users">All Users</Link>)}
+            </li>
             <div className="absolute bottom-8 flex items-center space-x-2">
               {!authSlice.isLoggedIn ? (
                 <>
