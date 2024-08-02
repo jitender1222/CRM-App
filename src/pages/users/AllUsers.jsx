@@ -6,6 +6,13 @@ import DataTable, { createTheme } from "react-data-table-component";
 
 const AllUsers=()=>{
     const [displayUser,setDisplayUser]=useState([]);
+    const [showAllUserData,setShowAllUserData]=useState({
+        _id:"",
+        name:"",
+        email:"",
+        userStatus:"",
+        clientName:""
+    });
     async function loadUsers(){
         
         const response=await axiosInstance.get("/users",{
@@ -72,17 +79,23 @@ const AllUsers=()=>{
         <HomeLayout>
             {
                 <DataTable
+                onRowClicked={(row) => {
+                    setShowAllUserData(row)
+                    document.getElementById('my_modal_2').showModal()}}
                 className="cursor-pointer"
                   columns={columns}
                   data={displayUser}
                   theme="solarized"
                 />
             }
-            <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}>open modal</button>
         <dialog id="my_modal_2" className="modal">
         <div className="modal-box">
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click outside to close</p>
+            <h3 className="font-bold text-lg">Hello {showAllUserData.name}</h3>
+            <p className="py-4">User ID: {showAllUserData._id}</p>
+            <p className="py-4">Name: {showAllUserData.name}</p>
+            <p className="py-4">Email: {showAllUserData.email}</p>
+            <p className="py-4">User Type: {showAllUserData.userType}</p>
+            <p className="py-4">User Satus: {showAllUserData.userStatus}</p>
         </div>
         <form method="dialog" className="modal-backdrop">
             <button>close</button>
