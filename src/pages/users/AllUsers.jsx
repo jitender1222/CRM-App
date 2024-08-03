@@ -2,26 +2,27 @@ import { useEffect, useState } from "react"
 import HomeLayout from "../../layout/HomeLayout"
 import axiosInstance from "../../config/axiosInstance"
 import DataTable, { createTheme } from "react-data-table-component";
-
+import UserDetailModal from "./UserDetailModal";
 
 const AllUsers=()=>{
     const [displayUser,setDisplayUser]=useState([]);
     const [showAllUserData,setShowAllUserData]=useState({
-        _id:"",
-        name:"",
-        email:"",
-        userStatus:"",
-        clientName:""
+        id:" ",
+        name:" ",
+        email:" ",
+        userStatus:" ",
+        clientName:" ",
+        userType:" "
+        
     });
     async function loadUsers(){
         
         const response=await axiosInstance.get("/users",{
-            headers:{
+            headers:{ 
                 "x-access-token":localStorage.getItem('token')
             }
         })
         setDisplayUser(response?.data?.result)
-        console.log(response?.data?.result);
     }
     useEffect(()=>{
         loadUsers();
@@ -46,6 +47,12 @@ const AllUsers=()=>{
         {
           name: 'User Type',
           selector: row => row.userType,
+          sortable: true,
+          reorder: true,
+        },
+        {
+          name: 'User Status',
+          selector: row => row.userStatus,
           sortable: true,
           reorder: true,
         },
@@ -80,27 +87,22 @@ const AllUsers=()=>{
             {
                 <DataTable
                 onRowClicked={(row) => {
-                    setShowAllUserData(row)
+                    setShowAllUserData({
+                      name: row.name,
+                      id:row._id,
+                      email:row.email,
+                      userStatus:row.userStatus,
+                      clientName:row.clientName,
+                      userType:row.userType
+                    })
                     document.getElementById('my_modal_2').showModal()}}
-                className="cursor-pointer"
-                  columns={columns}
-                  data={displayUser}
-                  theme="solarized"
+                    className="cursor-pointer"
+                    columns={columns}
+                    data={displayUser}
+                    theme="solarized"
                 />
             }
-        <dialog id="my_modal_2" className="modal">
-        <div className="modal-box">
-            <h3 className="font-bold text-lg">Hello {showAllUserData.name}</h3>
-            <p className="py-4">User ID: {showAllUserData._id}</p>
-            <p className="py-4">Name: {showAllUserData.name}</p>
-            <p className="py-4">Email: {showAllUserData.email}</p>
-            <p className="py-4">User Type: {showAllUserData.userType}</p>
-            <p className="py-4">User Satus: {showAllUserData.userStatus}</p>
-        </div>
-        <form method="dialog" className="modal-backdrop">
-            <button>close</button>
-        </form>
-        </dialog>
+            <UserDetailModal showAllUserData={showAllUserData} />
         </HomeLayout>
         </>
     )
