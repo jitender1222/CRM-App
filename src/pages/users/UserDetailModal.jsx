@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../config/axiosInstance";
 import toast from "react-hot-toast";
 
-const UserDetailModal=({showAllUserData})=>{
+const UserDetailModal=({showAllUserData,resetTable})=>{
 
     const [userStatus,setUserStatus]=useState(showAllUserData);
-    console.log(userStatus)
     async function onHandleClick(e){
         let dropdown=document.getElementById('open');
         dropdown.open=!dropdown.open;
@@ -21,7 +20,6 @@ const UserDetailModal=({showAllUserData})=>{
                 "x-access-token":localStorage.getItem('token')
             }
         })
-        console.log(response)
        if(response.data.result){
         toast.success("Updating User Successfully...");
         const user=response.data.result;
@@ -33,6 +31,7 @@ const UserDetailModal=({showAllUserData})=>{
             clientName:user.clientName
         })
        }
+       resetTable();
     }
 
     useEffect(() => {

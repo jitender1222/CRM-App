@@ -102,7 +102,7 @@ const AllUsers=()=>{
                     theme="solarized"
                 />
             }
-            <UserDetailModal showAllUserData={showAllUserData} />
+            <UserDetailModal showAllUserData={showAllUserData} resetTable={loadUsers} />
         </HomeLayout>
         </>
     )
