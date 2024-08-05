@@ -4,12 +4,14 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { usePDF } from "react-to-pdf";
 import DataTable, { createTheme } from 'react-data-table-component';
 import { useEffect, useState } from "react";
+import TicketDetailModel from "../components/TicketDetailModel";
 
 
 const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data,null,2)}</pre>;
 
 const Dashboard = () => {
   const [pending, setPending] = useState(true);
+  const [selectedTicket,setSelectedTickets]=useState({});
 	const [rows, setRows] = useState([]);
   const [ticket] = useLoadTickets();
   const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
@@ -88,6 +90,8 @@ const Dashboard = () => {
     return () => clearTimeout(timeout);
   }, []);
 
+  console.log(selectedTicket)
+
   return (
     <>
       <HomeLayout>
@@ -102,6 +106,10 @@ const Dashboard = () => {
           </div>
                 <>
                   {ticket && <DataTable
+                  onRowClicked={(row)=> {
+                    setSelectedTickets(row)
+                    document.getElementById('my_modal_2').showModal();
+                  }}
                   className="cursor-pointer"
                     columns={columns}
                     data={ticket.ticketList}
@@ -109,9 +117,14 @@ const Dashboard = () => {
 			              expandableRowsComponent={ExpandedComponent}
                     progressPending={pending}
                     theme="solarized"
-                  />}
+                  />
+                  }
+                  
+                   <TicketDetailModel ticket={selectedTicket}/>
                 </>
+                
         </div>
+       
       </HomeLayout>
     </>
   );
